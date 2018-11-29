@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {ApiService} from '../core/api.service';
@@ -12,21 +12,25 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
   invalidLogin: boolean = false;
-  constructor(private formBuilder: FormBuilder, private router: Router, private apiService: ApiService) { }
+
+  constructor(private formBuilder: FormBuilder, private router: Router, private apiService: ApiService) {
+  }
 
   onSubmit() {
     if (this.loginForm.invalid) {
-      return 'hello';
+      return;
     }
     const loginPayload = {
       username: this.loginForm.controls.username.value,
       password: this.loginForm.controls.password.value
-    }
+    };
     this.apiService.login(loginPayload).subscribe(data => {
-     // debugger;
-      if (data.status === 200) {
+      // debugger;
+      if (data.message === 'admin') {
         window.localStorage.setItem('token', data.result.token);
         this.router.navigate(['list-user']);
+      } else if (data.message === 'user') {
+        this.router.navigate(['user']);
       } else {
         this.invalidLogin = true;
         alert(data.message);
@@ -41,7 +45,6 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required]
     });
   }
-
 
 
 }

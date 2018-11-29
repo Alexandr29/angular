@@ -1,4 +1,4 @@
-import { Component, OnInit , Inject} from '@angular/core';
+import {Component, OnInit, Inject} from '@angular/core';
 import {Router} from '@angular/router';
 import {User} from '../model/user.model';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -14,25 +14,27 @@ export class EditUserComponent implements OnInit {
 
   user: User;
   editForm: FormGroup;
-  constructor(private formBuilder: FormBuilder, private router: Router, private apiService: ApiService) { }
+
+  constructor(private formBuilder: FormBuilder, private router: Router, private apiService: ApiService) {
+  }
 
   ngOnInit() {
     let userId = window.localStorage.getItem('editUserId');
     if (!userId) {
-      alert('Invalid action.')
+      alert('Invalid action.');
       this.router.navigate(['list-user']);
       return;
     }
     this.editForm = this.formBuilder.group({
       id: [''],
-      username: ['', Validators.required],
+      login: ['', Validators.required],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      age: ['', Validators.required],
-      salary: ['', Validators.required]
+      email: ['', Validators.required],
+      roleId: ['']
     });
     this.apiService.getUserById(+userId)
-      .subscribe( data => {
+      .subscribe(data => {
         this.editForm.setValue(data.result);
       });
   }

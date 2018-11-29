@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {ApiService} from '../core/api.service';
@@ -10,26 +10,27 @@ import {ApiService} from '../core/api.service';
 })
 export class AddUserComponent implements OnInit {
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private apiService: ApiService) { }
+  constructor(private formBuilder: FormBuilder, private router: Router, private apiService: ApiService) {
+  }
 
   addForm: FormGroup;
 
   ngOnInit() {
     this.addForm = this.formBuilder.group({
       id: [],
-      username: ['', Validators.required],
-      password: ['', Validators.required],
+      login: ['', Validators.required],
+      password: [''],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      age: ['', Validators.required],
-      salary: ['', Validators.required]
+      email: ['', Validators.required],
+      roleId: ['', Validators.required]
     });
 
   }
 
   onSubmit() {
     this.apiService.createUser(this.addForm.value)
-      .subscribe( data => {
+      .subscribe(data => {
         this.router.navigate(['list-user']);
       });
   }

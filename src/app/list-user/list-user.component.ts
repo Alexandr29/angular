@@ -1,7 +1,8 @@
-import { Component, OnInit , Inject} from '@angular/core';
+import {Component, OnInit, Inject} from '@angular/core';
 import {Router} from '@angular/router';
 import {User} from '../model/user.model';
 import {ApiService} from '../core/api.service';
+import {first} from 'rxjs/operators';
 
 @Component({
   selector: 'app-list-user',
@@ -12,7 +13,8 @@ export class ListUserComponent implements OnInit {
 
   users: User[];
 
-  constructor(private router: Router, private apiService: ApiService) { }
+  constructor(private router: Router, private apiService: ApiService) {
+  }
 
   ngOnInit() {
     if (!window.localStorage.getItem('token')) {
@@ -20,14 +22,18 @@ export class ListUserComponent implements OnInit {
       return;
     }
     this.apiService.getUsers()
-      .subscribe( data => {
-          this.users = data.result;
+      .subscribe(data => {
+        this.users = data.result;
       });
+  }
+
+  logout(): void {
+    this.router.navigate(['login']);
   }
 
   deleteUser(user: User): void {
     this.apiService.deleteUser(user.id)
-      .subscribe( data => {
+      .subscribe(data => {
         this.users = this.users.filter(u => u !== user);
       });
   }

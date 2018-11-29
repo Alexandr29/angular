@@ -2,13 +2,15 @@
   <h2 class="text-center">Add User</h2>
   <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
-      <label for="username">User Name:</label>
-      <input type="text" formControlName="username" placeholder="username" name="username" class="form-control" id="username">
+      <label for="username">Login:</label>
+      <input type="text" formControlName="login" placeholder="login" name="login" class="form-control"
+             id="username">
     </div>
 
     <div class="form-group">
       <label for="password">Password:</label>
-      <input type="password" formControlName="password" placeholder="password" name="password" class="form-control" id="password">
+      <input type="password" formControlName="password" placeholder="password" name="password" class="form-control"
+             id="password">
     </div>
 
     <div class="form-group">
@@ -22,13 +24,13 @@
     </div>
 
     <div class="form-group">
-      <label for="age">Age:</label>
-      <input type="number" formControlName="age" placeholder="age" name="age" class="form-control" id="age">
+      <label for="email">Email:</label>
+      <input type="text" formControlName="email" placeholder="email" name="email" class="form-control" id="email">
     </div>
 
     <div class="form-group">
-      <label for="salary">Salary:</label>
-      <input type="number" formControlName="salary" placeholder="salary" name="salary" class="form-control" id="salary">
+      <label for="roleId">Role Id:</label>
+      <input type="number" formControlName="roleId" placeholder="roleId" name="roleId" class="form-control" id="roleId">
     </div>
 
     <button class="btn btn-success">Update</button>
